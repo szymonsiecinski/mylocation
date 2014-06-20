@@ -16,6 +16,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -218,16 +219,24 @@ public class MainActivity extends Activity implements LocationListener {
 			czas.setToNow();
 			
 			//ustawienie zawartosci do zapisania
+			String formatCzasu = String.format("%d-%d-%d %d:%d:%d %s",
+					czas.year, czas.month, czas.monthDay,
+					czas.hour, czas.minute, czas.second, czas.timezone);
+			
 			String[] wspolrzedne = mZamienKoordynaty(latitude, longtitude);
+			
 			String zawartosc = String.format
 					("Długość geograficzna: %s\nSzerokość gegoraficzna: %s\nZarejestrowano: %s",
-							wspolrzedne[0], wspolrzedne[1], czas);
+							wspolrzedne[0], wspolrzedne[1], formatCzasu);
 			
 			//zapis pliku do pamięci zewnętrznej
-			String filename = String.format("Punkt %d-%d-%d %d.%d.%d.txt",czas.year, czas.month, czas.monthDay,
+			String filename = String.format("Punkt %d-%d-%d %d.%d.%d.txt",
+					czas.year, czas.month, czas.monthDay,
 					czas.hour, czas.minute, czas.second);
 			try {
-				FileOutputStream plik = openFileOutput(filename, Context.MODE_PRIVATE);
+				File pplik = new File(Environment.getExternalStorageDirectory(), filename);
+				FileOutputStream plik = new FileOutputStream(pplik);
+				
 				plik.write(zawartosc.getBytes());
 				plik.close();
 			} catch (FileNotFoundException e) {
