@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 import android.provider.Settings;
 
@@ -239,6 +240,11 @@ public class MainActivity extends Activity implements LocationListener {
 				
 				plik.write(zawartosc.getBytes());
 				plik.close();
+				
+				//wyświetl komunikat
+				Toast.makeText(getApplicationContext(), 
+						String.format("Plik \"%s\" został zapisany", filename), Toast.LENGTH_SHORT).show();
+				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				Log.d(STORAGE_SERVICE, "Nie ma takiego pliku", e);
