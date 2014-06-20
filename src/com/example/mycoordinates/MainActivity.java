@@ -221,7 +221,7 @@ public class MainActivity extends Activity implements LocationListener {
 			
 			//ustawienie zawartosci do zapisania
 			String formatCzasu = String.format("%d-%d-%d %d:%d:%d %s",
-					czas.year, czas.month, czas.monthDay,
+					czas.year, czas.month+1, czas.monthDay,
 					czas.hour, czas.minute, czas.second, czas.timezone);
 			
 			String[] wspolrzedne = mZamienKoordynaty(latitude, longtitude);
@@ -232,7 +232,7 @@ public class MainActivity extends Activity implements LocationListener {
 			
 			//zapis pliku do pamięci zewnętrznej
 			String filename = String.format("Punkt %d-%d-%d %d.%d.%d.txt",
-					czas.year, czas.month, czas.monthDay,
+					czas.year, czas.month+1, czas.monthDay,
 					czas.hour, czas.minute, czas.second);
 			try {
 				File pplik = new File(Environment.getExternalStorageDirectory(), filename);
